@@ -1,0 +1,679 @@
+<template>
+  <div class="chat">
+    <div class="header">
+      <div class="label">
+        <div class="label1">Первая комната</div>
+        <div class="label2">2 участника</div>
+      </div>
+      <div class="exitDiv">
+        <button></button>
+      </div>
+    </div>
+
+    <div class="frame">
+      <div class="msg time">28.10.2022</div>
+      <!--            me1-->
+      <div class="msg meMargin">
+        <div class="me">
+          <div class="mainBody">
+            <div class="msgText">
+              <div>Привет 👋</div>
+            </div>
+            <div class="timeApprove">
+              <div class="msgTime">11:31</div>
+              <div class="approve">
+                <img src="../assets/check2.svg">
+              </div>
+            </div>
+          </div>
+          <div class="bubble">
+            <img src="../assets/bubble_left.svg">
+          </div>
+        </div>
+      </div>
+      <!--            me2-->
+      <div class="msg meMargin">
+        <div class="me second">
+          <div class="mainBody">
+            <div class="msgText">
+              <div>Как успехи в написании кода?</div>
+            </div>
+            <div class="timeApprove">
+              <div class="msgTime">11:31</div>
+              <div class="approve">
+                <img src="../assets/check.svg">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--            other1 -->
+      <div class="msg otherMargin">
+        <div class="other">
+          <div class="bubbleOther">
+            <img src="../assets/top-vector-tip.svg">
+          </div>
+          <div class="mainBodyOther">
+            <div class="msgTextOther">
+              <div class="nickname">
+                Username
+              </div>
+              <div>Отлично! Повозился с websocket’aми, но сейчас всё работает.</div>
+            </div>
+            <div class="timeApproveOther">
+              <div class="msgTimeOther">11:31</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--            me3-->
+      <div class="msg meMargin">
+        <div class="me">
+          <div class="mainBody">
+            <div class="msgText">
+              <div>И даже галочки о доставке сообщения?</div>
+            </div>
+            <div class="timeApprove">
+              <div class="msgTime">11:31</div>
+              <div class="approve">
+                <img src="../assets/check2.svg">
+              </div>
+            </div>
+          </div>
+          <div class="bubble">
+            <img src="../assets/bubble_left.svg">
+          </div>
+        </div>
+      </div>
+      <!--            other2 -->
+      <div class="msg otherMargin">
+        <div class="other">
+          <div class="bubbleOther">
+            <img src="../assets/top-vector-tip.svg">
+          </div>
+          <div class="mainBodyOther">
+            <div class="msgTextOther">
+              <div class="nickname">
+                Username
+              </div>
+              <div>Да, конечно!</div>
+            </div>
+            <div class="timeApproveOther">
+              <div class="msgTimeOther">11:31</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--            other3 -->
+      <div class="msg otherMargin">
+        <div class="other">
+          <div class="bubbleOther">
+            <img src="../assets/top-vector-tip.svg">
+          </div>
+          <div class="mainBodyOther">
+            <div class="msgTextOther">
+              <div class="nickname">
+                Username
+              </div>
+              <div>Все сообщения сохраняются в БД, а при входе в комнату рендерятся. Пока участники в чате, то новые сообщения доставляются через WS.</div>
+            </div>
+            <div class="timeApproveOther">
+              <div class="msgTimeOther">11:31</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--            me4-->
+      <div class="msg meMargin">
+        <div class="me">
+          <div class="mainBody">
+            <div class="msgText">
+              <div>Класс 👍</div>
+            </div>
+            <div class="timeApprove">
+              <div class="msgTime">11:31</div>
+              <div class="approve">
+                <img src="../assets/check2.svg">
+              </div>
+            </div>
+          </div>
+          <div class="bubble">
+            <img src="../assets/bubble_left.svg">
+          </div>
+        </div>
+      </div>
+
+
+      <div class="msg time">28.10.2022</div>
+      <!--            me1-->
+      <div class="msg meMargin">
+        <div class="me">
+          <div class="mainBody">
+            <div class="msgText">
+              <div>Привет 👋</div>
+            </div>
+            <div class="timeApprove">
+              <div class="msgTime">11:31</div>
+              <div class="approve">
+                <img src="../assets/check2.svg">
+              </div>
+            </div>
+          </div>
+          <div class="bubble">
+            <img src="../assets/bubble_left.svg">
+          </div>
+        </div>
+      </div>
+      <!--            me2-->
+      <div class="msg meMargin">
+        <div class="me second">
+          <div class="mainBody">
+            <div class="msgText">
+              <div>Как успехи в написании кода?</div>
+            </div>
+            <div class="timeApprove">
+              <div class="msgTime">11:31</div>
+              <div class="approve">
+                <img src="../assets/check.svg">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--            other1 -->
+      <div class="msg otherMargin">
+        <div class="other">
+          <div class="bubbleOther">
+            <img src="../assets/top-vector-tip.svg">
+          </div>
+          <div class="mainBodyOther">
+            <div class="msgTextOther">
+              <div class="nickname">
+                Username
+              </div>
+              <div>Отлично! Повозился с websocket’aми, но сейчас всё работает.</div>
+            </div>
+            <div class="timeApproveOther">
+              <div class="msgTimeOther">11:31</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--            me3-->
+      <div class="msg meMargin">
+        <div class="me">
+          <div class="mainBody">
+            <div class="msgText">
+              <div>И даже галочки о доставке сообщения?</div>
+            </div>
+            <div class="timeApprove">
+              <div class="msgTime">11:31</div>
+              <div class="approve">
+                <img src="../assets/check2.svg">
+              </div>
+            </div>
+          </div>
+          <div class="bubble">
+            <img src="../assets/bubble_left.svg">
+          </div>
+        </div>
+      </div>
+      <!--            other2 -->
+      <div class="msg otherMargin">
+        <div class="other">
+          <div class="bubbleOther">
+            <img src="../assets/top-vector-tip.svg">
+          </div>
+          <div class="mainBodyOther">
+            <div class="msgTextOther">
+              <div class="nickname">
+                Username
+              </div>
+              <div>Да, конечно!</div>
+            </div>
+            <div class="timeApproveOther">
+              <div class="msgTimeOther">11:31</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--            other3 -->
+      <div class="msg otherMargin">
+        <div class="other">
+          <div class="bubbleOther">
+            <img src="../assets/top-vector-tip.svg">
+          </div>
+          <div class="mainBodyOther">
+            <div class="msgTextOther">
+              <div class="nickname">
+                Username
+              </div>
+              <div>Все сообщения сохраняются в БД, а при входе в комнату рендерятся. Пока участники в чате, то новые сообщения доставляются через WS.</div>
+            </div>
+            <div class="timeApproveOther">
+              <div class="msgTimeOther">11:31</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--            me4-->
+      <div class="msg meMargin">
+        <div class="me">
+          <div class="mainBody">
+            <div class="msgText">
+              <div>Класс 👍</div>
+            </div>
+            <div class="timeApprove">
+              <div class="msgTime">11:31</div>
+              <div class="approve">
+                <img src="../assets/check2.svg">
+              </div>
+            </div>
+          </div>
+          <div class="bubble">
+            <img src="../assets/bubble_left.svg">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="message">
+        <input placeholder="Сообщение...">
+      </div>
+      <div class="sendBut">
+        <button></button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'ChatView',
+  props: {
+    msg: String
+  }
+}
+</script>
+
+<style>
+  #app {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    background: #F4F4F4;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+
+<style scoped>
+  @font-face {
+    font-family: 'Open Sans';
+    src: url(../assets/OpenSans/OpenSans-Light.ttf);
+  }
+  input:focus {
+    outline: none;
+  }
+
+  .chat {
+    width: 546px;
+
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #FFFFFF;
+    box-shadow: inset 0 0 0 1px #E5E5EA;
+  }
+
+  .header {
+    flex: 0 0 68px;
+    display: flex;
+
+    width: 100%;
+
+    box-shadow: inset 0px -1px 0px #E5E5EA;
+  }
+  .header button {
+    flex: 1 1 1px;
+  }
+
+  .label {
+    flex: 1 1 1px;
+    text-align: center;
+    margin-left: 72px;
+    margin-top: 16px;
+    margin-bottom: 14px;
+  }
+  .label1 {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    color: #2C2C2E;
+    margin-bottom: 4px;
+  }
+  .label2 {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #666668;
+  }
+
+  .frame {
+    flex: 1 1 1px;
+    overflow: auto;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  .msg {
+    width: 100%;
+    flex: 0 0 39px;
+  }
+
+  /*.msg:not(:last-child) {*/
+  /*    margin-bottom: 6px;*/
+  /*}*/
+
+  .time {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #666668;
+    margin-bottom: 6px;
+  }
+  .me {
+    height: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding: 0 18.5px 0 0;
+  }
+  .me.second {
+    padding-right: 27px;
+  }
+  .me img {
+    padding: 0;
+    margin: 0;
+  }
+  .second .mainBody {
+    border-radius: 6px 6px 6px 6px;
+  }
+
+  .mainBody {
+    height: 100%;
+    background: #5D5FEF;
+    border-radius: 6px 0px 6px 6px;
+    display: flex;
+  }
+
+  .msgText {
+    flex: 1 1 1px;
+    padding: 4px 0 0 8px;
+    margin-bottom: 16px;
+    /*width: min-content;*/
+    max-width: 203px;
+
+    hyphens: auto;
+  }
+  .msgText div {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+    color: #FFFFFF;
+    white-space: pre-wrap;
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+  }
+
+  .timeApprove {
+    flex: 0 0 1px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    padding-right: 6px;
+    margin-left: 8px;
+  }
+
+  .msgTime {
+    flex: 1 1 1px;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+
+    color: #FFFFFF;
+    padding-right: 4px;
+    padding-bottom: 4px;
+  }
+
+  .approve {
+    padding-bottom: 8px;
+    display: flex;
+    align-items: end;
+  }
+  .approve img {
+    width: 16px;
+    height: 8px;
+    background-position:center center;
+  }
+
+  .bubble {
+    padding: 0;
+    margin: 0;
+
+    height: 100%;
+
+    display: flex;
+    align-items: flex-start;
+    margin-left: -1px;
+  }
+
+  .bubbleOther {
+    padding: 0;
+    margin: 0;
+
+    height: 100%;
+
+    display: flex;
+    align-items: flex-start;
+    margin-right: -1px;
+  }
+
+  .footer {
+    flex: 0 0 48px;
+    box-shadow: inset 0px 1px 0px #E5E5EA;
+    padding: 0;
+
+    display: flex;
+  }
+
+  .message {
+    flex: 1 1 1px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .message input {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+    color: #666668;
+    border: none;
+
+    padding: 13px 0px 14px 13px;
+    gap: 10px;
+
+    margin-top: 1px;
+    margin-left: 2px;
+
+    width: 100%;
+  }
+
+  .sendBut {
+    flex: 0 0 72px;
+
+    display: flex;
+    justify-content: right;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-right: 12px;
+  }
+  .sendBut button {
+    padding: 0;
+    background: url(../assets/paper-airplane.svg);
+    width: 16px;
+    height: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  .sendBut button:hover {
+    filter: invert(34%) sepia(77%) saturate(642%) hue-rotate(203deg) brightness(96%) contrast(92%);
+  }
+  .sendBut button:active {
+    filter: invert(34%) sepia(77%) saturate(142%) hue-rotate(253deg) brightness(96%) contrast(92%);
+  }
+
+  .exitDiv {
+    flex: 0 0 24px;
+    height: 24px;
+    margin: 22px;
+    padding: 0;
+  }
+  .exitDiv button {
+    padding: 0;
+    background: url(../assets/exit.svg);
+    width: 24px;
+    height: 24px;
+    border: none;
+    cursor: pointer;
+
+  }
+  .exitDiv button:hover {
+    filter: invert(61%) sepia(4%) saturate(23%) hue-rotate(324deg) brightness(79%) contrast(82%);
+  }
+  .exitDiv button:active {
+    filter: invert(66%) sepia(11%) saturate(4%) hue-rotate(45deg) brightness(106%) contrast(92%);
+  }
+
+  .frame::-webkit-scrollbar {
+    width: 3px;
+  }
+  .frame::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+  }
+  .frame::-webkit-scrollbar-thumb {
+    background-color: #5D5FEF;
+  }
+
+  .other {
+    height: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 0 0 0 16px;
+  }
+
+  .timeApproveOther {
+    flex: 0 0 1px;
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    margin-left: 8px;
+  }
+
+  .mainBodyOther {
+    height: 100%;
+    background: #F2F2F7;
+    border-radius: 0 6px 6px 6px;
+    display: flex;
+  }
+
+  .msgTextOther {
+    flex: 1 1 1px;
+    padding: 4px 0 0 6px;
+    margin-bottom: 15px;
+    /*width: min-content;*/
+    max-width: 248px;
+
+    hyphens: auto;
+  }
+  .msgTextOther > :not(.nickname)  {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #2C2C2E;
+  }
+
+  .nickname {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    /* identical to box height, or 129% */
+    color: #2C2C2E;
+    margin-bottom: 4px;
+  }
+
+  .msgTimeOther {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 16px;
+    color: #666668;
+    padding-right: 8px;
+    padding-bottom: 4px;
+  }
+
+
+  .meMargin {
+    margin-bottom: 6px;
+  }
+  .meMargin + .otherMargin {
+    margin-top: 10px;
+  }
+
+  .otherMargin {
+    margin-bottom: 12px;
+  }
+  .otherMargin + .meMargin {
+    margin-top: 4px;
+  }
+</style>
