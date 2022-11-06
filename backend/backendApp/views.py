@@ -8,7 +8,6 @@ import json
 
 
 def is_request_from_user(request):
-    return True
     try:
         token = request.headers["Token"]
     except Exception as e:
@@ -16,7 +15,7 @@ def is_request_from_user(request):
         return False
 
     try:
-        if db.isTokenExist(token):
+        if db.isTokenExist(token)[0][0]:
             return True
     except Exception as e:
         return False
@@ -51,7 +50,7 @@ def get_messages(request, room_id):
         return Response(db.get_messages(room_id))
 
 
-# curl -X POST -v localhost:8000/send_message/ -d "{\"room_id\": \"1\", \"user_id\": \"1\", \"msg\": \"test_message\"}" --header "Token2: 9f76a6e9-9fea-426f-b082-9628781ee36e"
+# curl -X POST -v localhost:8000/send_message/ -d "{\"room_id\": \"1\", \"user_id\": \"1\", \"msg\": \"test_message\"}" --header "Token: b454a363-a801-4bf0-9ac6-8d8f5af862d8"
 @api_view(['POST'])
 def send_message(request):
     if not is_request_from_user(request):
@@ -81,7 +80,7 @@ def get_cookie(request, user_id):
         return Response(db.get_cookie(user_id))
 
 
-# curl -X POST -v localhost:8000/auth/ -d "{\"login\": \"user\", \"pass\": \"1234\"}"
+# curl -X POST -v localhost:8000/auth/ -d "{\"login\": \"user\", \"pass\": \"1234\"}" --header "Token: b454a363-a801-4bf0-9ac6-8d8f5af862d8"
 @api_view(['POST'])
 def auth(request):
     if not is_request_from_user(request):
@@ -97,7 +96,8 @@ def auth(request):
 
         if login and password:
             user = db.get_user_by_login(login)
-            if user and user[0] and user[0][0]:
+            print(len(user))
+            if user and len(user) > 0 and user[0] and user[0][0]:
                 # Если хэш не совпал - ошибка
                 if password != user[0][2]:
                     return HttpResponseForbidden()
@@ -118,5 +118,5 @@ def auth(request):
                 json_cookie = json.dumps((cookie[0][2], str(cookie[0][3])))
                 return Response(json_cookie)
 
-        return HttpResponseServerError()
+        return HttpResponseForbidden()
 

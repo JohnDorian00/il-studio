@@ -87,9 +87,10 @@ def isTokenExist(token):
     cursor = conn.cursor()
 
     try:
-        cursor.execute("SELECT EXISTS(SELECT 1 FROM ilstudio.cookie where token = %s) ;", (str(token),))
+        cursor.execute("SELECT EXISTS(SELECT 1 FROM ilstudio.cookie where token = %s AND kill_time > now()::timestamp);", (str(token),))
         data = cursor.fetchall()
     except Exception as e:
+        print(e)
         raise Exception("token is not uuid")
     finally:
         cursor.close()

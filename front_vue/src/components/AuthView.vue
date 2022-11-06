@@ -2,9 +2,9 @@
   <div class="authForm">
     <div class="header"><div>Авторизация</div></div>
     <div class="frame">
-      <input class="inp1" placeholder="Логин">
-      <input class="inp2" placeholder="Пароль">
-      <button>Войти</button>
+      <input class="inp1" placeholder="Логин" v-model="login">
+      <input class="inp2" placeholder="Пароль" v-model="pass">
+      <button @click="auth">Войти</button>
     </div>
   </div>
 </template>
@@ -14,6 +14,37 @@ export default {
   name: 'AuthView',
   props: {
     msg: String
+  },
+  data() {
+    return {
+      login: "",
+      pass: ""
+    }
+  },
+  methods: {
+    auth: async function () {
+      try {
+        let req = await fetch('http://' + this.backendIp + ':8000/auth/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Token': 'b454a363-a801-4bf0-9ac6-8d8f5af862d8'
+          },
+          body: JSON.stringify({login: this.login, pass: this.pass})
+        })
+
+        if (req.status === 200) {
+         // // Записать куки в браузер
+         // let body = JSON.parse(await req.json()),
+         //     token = body[0],
+         //     date = new Date(Date.parse(body[1]))
+         this.emitter.emit('changeView', {'view': 'ChooseChatView'})
+        }
+
+      } catch (e) {
+        console.log(e)
+      }
+    }
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <button class="exitBut"></button>
+  <button class="exitBut" @click="logoff"></button>
   <div class="authForm">
     <div class="header">
       <div>Выберите / создайте чат</div>
@@ -25,6 +25,11 @@ export default {
   name: 'ChooseChatView',
   props: {
     msg: String
+  },
+  methods: {
+    logoff: function () {
+      this.emitter.emit('changeView', {'view': 'AuthView'})
+    }
   }
 }
 </script>

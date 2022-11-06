@@ -1,2 +1,4 @@
 .idea
 __pycache__
+front_vue\package-lock.json
+package-lock.json
