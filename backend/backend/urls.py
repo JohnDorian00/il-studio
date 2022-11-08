@@ -25,4 +25,5 @@ urlpatterns = [
     path('get_cookie/<int:user_id>', views.get_cookie),
     path('auth/', views.auth),
     path('send_message/', views.send_message),
+    path('create_room/', views.create_room),
 ]

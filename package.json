@@ -2,5 +2,6 @@
   "name": "il-studio",
   "version": "1.0.0",
   "dependencies": {
+    "vue3-cookies": "^1.0.6"
   }
 }

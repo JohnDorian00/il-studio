@@ -38,7 +38,7 @@ def get_rooms(request):
         return HttpResponseForbidden()
 
     if request.method == 'GET':
-        return Response(db.get_rooms())
+        return Response(json.dumps(db.get_rooms()))
 
 
 @api_view(['GET'])
@@ -83,10 +83,12 @@ def get_cookie(request, user_id):
 # curl -X POST -v localhost:8000/auth/ -d "{\"login\": \"user\", \"pass\": \"1234\"}" --header "Token: b454a363-a801-4bf0-9ac6-8d8f5af862d8"
 @api_view(['POST'])
 def auth(request):
-    if not is_request_from_user(request):
-        return HttpResponseForbidden()
-
     if request.method == 'POST':
+        # Проверка токена в хэдере
+        if request and request.headers and "Token" in request.headers and is_request_from_user(request):
+            json_cookie = json.dumps((request.headers['Token'], None))
+            return Response(json_cookie)
+
         body = json.loads(request.body)
         try:
             login, password = body["login"], body["pass"]
@@ -120,3 +122,22 @@ def auth(request):
 
         return HttpResponseForbidden()
 
+
+@api_view(['POST'])
+def create_room(request):
+    if not is_request_from_user(request):
+        return HttpResponseForbidden()
+
+    if request.method == 'POST':
+        body = json.loads(request.body)
+        try:
+            room_name = body["room_name"]
+        except Exception as e:
+            print("Не хватает данных", e)
+            return HttpResponseBadRequest()
+
+        if room_name:
+            db.create_room(room_name)
+            return HttpResponse()
+
+        return HttpResponseServerError()

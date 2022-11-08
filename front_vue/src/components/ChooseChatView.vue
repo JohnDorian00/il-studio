@@ -5,47 +5,115 @@
       <div>Выберите / создайте чат</div>
     </div>
     <div class="frame">
-      <div class="row">
+      <div v-for="room in rooms" :key="room.name" class="row">
         <div>
-          <p>Первая комната</p>
+          <p>{{room.name}}</p>
           <button></button>
         </div>
       </div>
 
       <div class="row createChat">
-        <input placeholder="Введите название чата">
-        <button>Создать</button>
+        <input autofocus placeholder="Введите название чата" v-model="roomName">
+        <button @click="createRoom">Создать</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {useCookies} from "vue3-cookies";
+
 export default {
   name: 'ChooseChatView',
   props: {
-    msg: String
+    token: String
+  },
+  setup() {
+    const { cookies } = useCookies();
+    return { cookies };
+  },
+  data() {
+    return {
+      rooms: [],
+      roomName: ""
+    }
+  },
+  created() {
+    this.refreshRooms();
   },
   methods: {
     logoff: function () {
+      this.cookies.remove("token");
       this.emitter.emit('changeView', {'view': 'AuthView'})
+    },
+    refreshRooms: async function () {
+      try {
+        let head = {'Content-Type': 'application/json'}
+        if (this.token) {
+          head.token = this.token;
+        } else {
+          this.logoff()
+        }
+        let req = await fetch('http://' + this.backendIp + ':8000/get_rooms/', {
+          method: 'GET',
+          headers: head
+        })
+
+        if (req.status === 200) {
+          // // Записать куки в браузер
+          let body = JSON.parse(await req.json());
+
+          if (body) {
+            this.rooms = [];
+            body.forEach((room)=> {
+              this.rooms.push({name: room[1]})
+            })
+          }
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    createRoom: async function () {
+      if (!this.roomName) return
+      try {
+        let head = {'Content-Type': 'application/json'}
+        if (this.token) {
+          head.token = this.token;
+        } else {
+          this.logoff()
+        }
+        let req = await fetch('http://' + this.backendIp + ':8000/create_room/', {
+          method: 'POST',
+          headers: head,
+          body: JSON.stringify({room_name: this.roomName})
+        })
+
+        if (req.status === 200) {
+          await this.refreshRooms();
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    pressEnter: function (e) {
+      if (e.key === "Enter" && (document.activeElement.tagName.toLowerCase() !== 'button')) {
+        this.createRoom();
+      }
     }
+  },
+  mounted() {
+    document.getElementById("app").style.background = "#F4F4F4";
+    document.addEventListener("keypress", this.pressEnter);
+  },
+  unmounted() {
+    document.getElementById("app").style.background = "";
+    document.removeEventListener("keypress", this.pressEnter);
   }
 }
 </script>
 
 <style>
-  #app {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    background: #F4F4F4;
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
 </style>
 
 <style scoped>

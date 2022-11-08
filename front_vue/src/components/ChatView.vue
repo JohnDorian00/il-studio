@@ -292,23 +292,13 @@
 export default {
   name: 'ChatView',
   props: {
-    msg: String
-  }
+    token: String
+  },
 }
 </script>
 
 <style>
-  #app {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    background: #F4F4F4;
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
 </style>
 
 <style scoped>

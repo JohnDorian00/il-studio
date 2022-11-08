@@ -2,7 +2,7 @@
   <div class="authForm">
     <div class="header"><div>Авторизация</div></div>
     <div class="frame">
-      <input class="inp1" placeholder="Логин" v-model="login">
+      <input autofocus class="inp1" placeholder="Логин" v-model="login">
       <input class="inp2" placeholder="Пароль" v-model="pass">
       <button @click="auth">Войти</button>
     </div>
@@ -10,10 +10,16 @@
 </template>
 
 <script>
+import { useCookies } from "vue3-cookies";
+
 export default {
   name: 'AuthView',
   props: {
-    msg: String
+    token: String
+  },
+  setup() {
+    const { cookies } = useCookies();
+    return { cookies };
   },
   data() {
     return {
@@ -22,41 +28,31 @@ export default {
     }
   },
   methods: {
-    auth: async function () {
-      try {
-        let req = await fetch('http://' + this.backendIp + ':8000/auth/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Token': 'b454a363-a801-4bf0-9ac6-8d8f5af862d8'
-          },
-          body: JSON.stringify({login: this.login, pass: this.pass})
-        })
-
-        if (req.status === 200) {
-         // // Записать куки в браузер
-         // let body = JSON.parse(await req.json()),
-         //     token = body[0],
-         //     date = new Date(Date.parse(body[1]))
-         this.emitter.emit('changeView', {'view': 'ChooseChatView'})
-        }
-
-      } catch (e) {
-        console.log(e)
+    auth: function () {
+      this.emitter.emit('auth', {login: this.login, pass: this.pass})
+    },
+    pressEnter: function (e) {
+      if (e.key === "Enter" && (document.activeElement.tagName.toLowerCase() !== 'button')) {
+        this.auth();
       }
     }
+  },
+  mounted: function () {
+    document.addEventListener("keypress", this.pressEnter);
+    document.getElementById("app").style.backgroundSize = "cover";
+  },
+  unmounted() {
+    document.getElementById("app").style.backgroundSize = "0px 0px";
+    document.removeEventListener("keypress", this.pressEnter);
   }
 }
 </script>
 
 <style>
   #app {
-    height: 100%;
-    width: 100%;
-    margin: 0;
     background-image: url("../assets/Blur.png");
     background-position:center center;
-    background-size:cover;
+    background-size: 0 0;
   }
 </style>
 

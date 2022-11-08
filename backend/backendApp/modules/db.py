@@ -87,7 +87,8 @@ def isTokenExist(token):
     cursor = conn.cursor()
 
     try:
-        cursor.execute("SELECT EXISTS(SELECT 1 FROM ilstudio.cookie where token = %s AND kill_time > now()::timestamp);", (str(token),))
+        # cursor.execute("SELECT EXISTS(SELECT 1 FROM ilstudio.cookie where token = %s AND kill_time > now()::timestamp);", (str(token),))
+        cursor.execute("SELECT EXISTS(SELECT 1 FROM ilstudio.cookie where token = %s);", (str(token),))
         data = cursor.fetchall()
     except Exception as e:
         print(e)
@@ -128,6 +129,17 @@ def send_message(msg, user_id, room_id):
 
     cursor.execute("INSERT INTO ilstudio.messages (room_id, user_id, msg, date) VALUES(%s, %s, %s, %s)",
                    (str(room_id), str(user_id), str(msg), datetime.datetime.now()))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+
+def create_room(room_name):
+    conn = set_con()
+    cursor = conn.cursor()
+
+    cursor.execute("INSERT INTO ilstudio.rooms (name) VALUES (%s)", (str(room_name),))
+
     conn.commit()
     cursor.close()
     conn.close()
