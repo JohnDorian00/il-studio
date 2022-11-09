@@ -292,8 +292,13 @@
 export default {
   name: 'ChatView',
   props: {
-    token: String
+    token: String,
+    userId: String,
+    infoForRoom: Object
   },
+  mounted() {
+    console.log(this.infoForRoom, this.userId)
+  }
 }
 </script>
 

@@ -74,7 +74,19 @@ def get_cookie(user_id):
     conn = set_con()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM ilstudio.cookie WHERE user_id = %s;", (str(user_id),))
+    cursor.execute("SELECT token, kill_time, user_id FROM ilstudio.cookie WHERE user_id = %s;", (str(user_id),))
+    data = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+    return data
+
+
+def get_cookie_by_token(token):
+    conn = set_con()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT token, kill_time, user_id FROM ilstudio.cookie WHERE token = %s;", (str(token),))
     data = cursor.fetchall()
 
     cursor.close()

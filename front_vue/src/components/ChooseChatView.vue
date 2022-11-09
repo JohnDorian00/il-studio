@@ -8,7 +8,7 @@
       <div v-for="room in rooms" :key="room.name" class="row">
         <div>
           <p>{{room.name}}</p>
-          <button></button>
+          <button :data-room-id="room.id" @click="joinRoom"></button>
         </div>
       </div>
 
@@ -26,7 +26,8 @@ import {useCookies} from "vue3-cookies";
 export default {
   name: 'ChooseChatView',
   props: {
-    token: String
+    token: String,
+    userId: String
   },
   setup() {
     const { cookies } = useCookies();
@@ -44,7 +45,7 @@ export default {
   methods: {
     logoff: function () {
       this.cookies.remove("token");
-      this.emitter.emit('changeView', {'view': 'AuthView'})
+      this.emitter.emit('changeView', {view: 'AuthView'})
     },
     refreshRooms: async function () {
       try {
@@ -60,13 +61,12 @@ export default {
         })
 
         if (req.status === 200) {
-          // // Записать куки в браузер
           let body = JSON.parse(await req.json());
 
           if (body) {
             this.rooms = [];
             body.forEach((room)=> {
-              this.rooms.push({name: room[1]})
+              this.rooms.push({id: room[0], name: room[1]})
             })
           }
         }
@@ -99,6 +99,14 @@ export default {
     pressEnter: function (e) {
       if (e.key === "Enter" && (document.activeElement.tagName.toLowerCase() !== 'button')) {
         this.createRoom();
+      }
+    },
+    joinRoom: function (e) {
+      try {
+        let roomId = e.target.dataset.roomId;
+        this.emitter.emit('changeView', {view: 'ChatView', infoForRoom: {roomId: roomId}})
+      } catch (e) {
+        console.log(e)
       }
     }
   },

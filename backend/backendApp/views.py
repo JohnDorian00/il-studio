@@ -86,7 +86,8 @@ def auth(request):
     if request.method == 'POST':
         # Проверка токена в хэдере
         if request and request.headers and "Token" in request.headers and is_request_from_user(request):
-            json_cookie = json.dumps((request.headers['Token'], None))
+            cookie = db.get_cookie_by_token(request.headers['Token'])
+            json_cookie = json.dumps((cookie[0][0], str(cookie[0][1]), cookie[0][2]))
             return Response(json_cookie)
 
         body = json.loads(request.body)
@@ -107,17 +108,17 @@ def auth(request):
                 cookie = db.get_cookie(user_id)
                 # Если куки уже есть в бд и время не вышло -
                 # юзер уже автризован, отдать куки и время окончания
-                if cookie and cookie[0] and cookie[0][3] > datetime.datetime.now():
-                    json_cookie = json.dumps((cookie[0][2], str(cookie[0][3])))
+                if cookie and cookie[0] and cookie[0][1] > datetime.datetime.now():
+                    json_cookie = json.dumps((cookie[0][0], str(cookie[0][1]), cookie[0][2]))
                     return Response(json_cookie)
                 # Если куки уже есть в бд и время вышло - удалить куки из бд
-                elif cookie and cookie[0] and cookie[0][3] < datetime.datetime.now():
+                elif cookie and cookie[0] and cookie[0][1] < datetime.datetime.now():
                     db.remove_cookie(user_id)
 
                 # Если куки нет в бд -
                 db.set_cookie(user_id)
                 cookie = db.get_cookie(user_id)
-                json_cookie = json.dumps((cookie[0][2], str(cookie[0][3])))
+                json_cookie = json.dumps((cookie[0][0], str(cookie[0][1]), cookie[0][2]))
                 return Response(json_cookie)
 
         return HttpResponseForbidden()

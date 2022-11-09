@@ -1,5 +1,5 @@
 <template>
-  <component :is="currentView" :token="token"></component>
+  <component :is="currentView" :token="token" :userId="userId" :infoForRoom="infoForRoom"></component>
 </template>
 
 <script>
@@ -17,7 +17,9 @@ export default {
   data() {
     return {
       currentView: null,
-      token: this.cookies.get("token")
+      token: this.cookies.get("token"),
+      userId: null,
+      infoForRoom: {}
     }
   },
   created (){
@@ -26,7 +28,7 @@ export default {
     })
 
     this.emitter.on('changeView', (data) => {
-      this.changeView(data.view)
+      this.changeView(data)
     })
 
     if (this.token) {
@@ -37,6 +39,10 @@ export default {
   },
   methods: {
     changeView: function (data) {
+      if (data.infoForRoom) {
+        this.infoForRoom = data.infoForRoom;
+      }
+
       switch (data.view) {
         case "AuthView":
           this.currentView = AuthView;
@@ -47,8 +53,6 @@ export default {
         case "ChatView":
           this.currentView = ChatView;
           break;
-        default:
-          this.currentView = AuthView;
       }
     },
 
@@ -68,10 +72,12 @@ export default {
           // // Записать куки в браузер
           let body = JSON.parse(await req.json()),
               token = body[0],
-              date = new Date(Date.parse(body[1]))
+              date = new Date(Date.parse(body[1])),
+              userId = body[2]
 
           this.cookies.set("token", token, date);
           this.token = token;
+          this.userId = userId;
           this.changeView({view: 'ChooseChatView'})
         }
 
