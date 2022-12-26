@@ -6,7 +6,7 @@
         <div class="label2">2 участника</div>
       </div>
       <div class="exitDiv">
-        <button></button>
+        <button @click="logoff"></button>
       </div>
     </div>
 
@@ -297,7 +297,13 @@ export default {
     infoForRoom: Object
   },
   mounted() {
-    console.log(this.infoForRoom, this.userId)
+    console.log(this.infoForRoom, this.userId);
+  },
+  methods: {
+    logoff: function () {
+      console.log(123)
+      this.emitter.emit('changeView', {view: 'ChooseChatView'})
+    },
   }
 }
 </script>
@@ -670,5 +676,27 @@ export default {
   }
   .otherMargin + .meMargin {
     margin-top: 4px;
+  }
+
+  .exitBut {
+    top: 0;
+    right: 0;
+    padding: 0;
+
+    margin: 24px 182px 0 0;
+
+    background: url(../assets/exit.svg);
+    width: 24px;
+    height: 24px;
+    border: none;
+    cursor: pointer;
+
+    position: absolute;
+  }
+  .exitBut:hover {
+    filter: invert(61%) sepia(4%) saturate(23%) hue-rotate(324deg) brightness(79%) contrast(82%);
+  }
+  .exitBut:active {
+    filter: invert(66%) sepia(11%) saturate(4%) hue-rotate(45deg) brightness(106%) contrast(92%);
   }
 </style>

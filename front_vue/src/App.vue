@@ -57,6 +57,10 @@ export default {
     },
 
     auth: async function (login, pass, token) {
+      this.token = 123;
+      this.userId = 321;
+      this.changeView({view: 'ChooseChatView'})
+
       try {
         let head = {'Content-Type': 'application/json'}
         if (token) {

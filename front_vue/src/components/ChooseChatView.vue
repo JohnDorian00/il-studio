@@ -35,7 +35,11 @@ export default {
   },
   data() {
     return {
-      rooms: [],
+      rooms: [
+        {
+          id: 0, name: "test room"
+        }
+      ],
       roomName: ""
     }
   },
@@ -48,6 +52,7 @@ export default {
       this.emitter.emit('changeView', {view: 'AuthView'})
     },
     refreshRooms: async function () {
+      return
       try {
         let head = {'Content-Type': 'application/json'}
         if (this.token) {
